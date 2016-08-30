@@ -75,7 +75,7 @@ namespace Array__Indexator_and_Property_
             //Проверить нахождение индекса в длине массива
             public bool ok(int index)
             {
-                if (index >= lowI && index < highI) return true;
+                if (index >= lowI && index <= highI) return true;
                 else return false;
             }
 
