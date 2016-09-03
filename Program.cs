@@ -11,7 +11,7 @@ namespace AssociableArray
         string [] a;
         char[] k;
         int i = 0;
-        int l;
+        int l, c;
         public AssArr (int am)//конструктор динамического массива
         {
             if (am > 0) a = new string[am];
@@ -29,18 +29,31 @@ namespace AssociableArray
                 {
                     if (k[j] == key)
                     {
-                        i = j;
-                        break;
+                        c = j;
                     }
+                   
+                    
                 }
-                 return a[i];
+                return a[c];
             }
             set//присваивание значений по ключу
             {
-                
-                k[i] = key;
-                a[i] = value;
-                i++;
+                bool b = true;
+                for (int j = 0; j < l; j++)
+                {
+                    if (k[j] == key)
+                    {
+                        a[j] = value;
+                        b = false;
+                    }
+                }
+                    if (b)
+                    {
+                    if (i >= l) Console.WriteLine("В массиве больше нет места!");
+                    k[i] = key;
+                    a[i] = value;
+                    i++;
+                }
             }
         }
 
@@ -51,9 +64,13 @@ namespace AssociableArray
         static void Main(string[] args)
         {
             AssArr F = new AssArr(3);
-            F['a'] = "Hello!";
-            F['b'] = "I";
-            F['c'] = "5";
+            F['a'] = "1";
+            F['b'] = "2";
+            F['c'] = "3";
+            F['c'] = "4";
+            F['b'] = "5";
+            //F['d'] = "6"; - Появиться сообщение: "В массиве больше нет места!"
+            //Обработку исключений еще не прошел, поэтому пока ошибка не обрабатывается.
             Console.WriteLine("F['a']=" + F['a'] + "\nF['b']=" + F['b'] + "\nF['c']=" + F['c']+ "\nF['b']=" + F['b']);
             Console.ReadKey();
         }
