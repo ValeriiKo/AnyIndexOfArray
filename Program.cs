@@ -4,108 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Array__Indexator_and_Property_
+namespace AssociableArray
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    namespace AnyIndexOfArray
+    class AssArr
     {
-        class RangeArray
+        string [] a;
+        char[] k;
+        int i = 0;
+        int l;
+        public AssArr (int am)//конструктор динамического массива
         {
-            int[] a;
-            public int lowI { get; private set; }  
-            public int highI { get; private set; }
-            
-            public RangeArray(int low, int high)
-            {
-                if (low > high)
-                {
-                    Console.WriteLine("Input a correct index of array!\n High index must be more than low!");
-                    a = new int[0];
-                    Length = 1;
-                }
-                else
-                {
-                    high++;
-                    a = new int[high - low];
-                    Length = high - low;
-                    highI = --high;
-                    lowI = low;
-                }
-            }
-
-            public int Length { get; private set; }
-
-            public bool Error { get; private set; }
-
-            //Индексатор для класса
-            public int this[int index]
-            {
-                get
-                {
-                    if (ok(index))
-                    {
-                        Error = false;
-                        return a[index-lowI];
-                    }
-                    else
-                    {
-                        Error = true;
-                        return 0;
-                    }
-                }
-                set
-                {
-                    if (ok(index))
-                    {
-                        Error = false;
-                        a[index-lowI] = value;
-                    }
-                    else
-                    {
-                        Error = true;
-                    }
-                }
-            }
-            
-            //Проверить нахождение индекса в длине массива
-            public bool ok(int index)
-            {
-                if (index >= lowI && index <= highI) return true;
-                else return false;
-            }
-
-
+            if (am > 0) a = new string[am];
+            else Console.WriteLine("Кол-во элементов должно быть больше нуля.");
+            k = new char[am];
+            l = am;
         }
-        class Program
+
+
+        public string this[char key]
         {
-            static void Main(string[] args)
+            get// вызов элемента массива по ключу
             {
-                RangeArray Arr = new RangeArray(-5,5);
-                Console.WriteLine("Low=-5, High =5, \nArray is");
-                Console.WriteLine("Length of array is " + Arr.Length);
-                for (int i = -5; i < Arr.Length; i++)
+                for (int j = 0; j < l; j++)
                 {
-                    Arr[i] = i * 10;
-                    if (!Arr.Error) Console.WriteLine("Arr[" + i + "]=" + Arr[i]);
-                    else Console.WriteLine("Error in {0} element of array.", i);
+                    if (k[j] == key)
+                    {
+                        i = j;
+                        break;
+                    }
                 }
-                Console.WriteLine("Low=10, High =7, \nArray is");
-                RangeArray Arr2 = new RangeArray(10, 7);
-                Console.WriteLine("Length of array is " + Arr2.Length);
-                for (int i = Arr2.lowI; i <=Arr2.highI; i++)
-                {
-                    Arr[i] = i * 10;
-                    if (!Arr.Error) Console.WriteLine("Arr[" + i + "]=" + Arr[i]);
-                    else Console.WriteLine("Error in {0} element of array.", i);
-                }
-                Console.ReadKey();
+                 return a[i];
             }
+            set//присваивание значений по ключу
+            {
+                
+                k[i] = key;
+                a[i] = value;
+                i++;
+            }
+        }
+
+
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            AssArr F = new AssArr(3);
+            F['a'] = "Hello!";
+            F['b'] = "I";
+            F['c'] = "5";
+            Console.WriteLine("F['a']=" + F['a'] + "\nF['b']=" + F['b'] + "\nF['c']=" + F['c']+ "\nF['b']=" + F['b']);
+            Console.ReadKey();
         }
     }
 }
-
